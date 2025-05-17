@@ -28,21 +28,21 @@ class Person {
     //Setter methods
     public void setName(String name){
         if(name==null|| name.isEmpty()){
-            throw new IllegalArgumentException("Name should not be blank");
+            throw new IllegalArgumentException("Name should not be blank. Please Enter a name");
         } else{
             this.name = name;
         }
     }
     public void setAge(int age){
         if(age<0){
-            throw new IllegalArgumentException("Age should be positive");
+            throw new IllegalArgumentException("Age must be positive");
         }else{
             this.age = age;
         }
     }
     public void setEmail(String email){
         if(email==null||email.isEmpty()){
-            throw new IllegalArgumentException("Email should not be empty");
+            throw new IllegalArgumentException("Email should not be empty. Please enter the email");
         }else{
             this.email = email;
         }
@@ -50,20 +50,17 @@ class Person {
 }
 //Student class-subclass
 class Student extends Person {
-
     private int StudentId;
     private int grade;
-    private ArrayList<Course> studentCourses;
+    private ArrayList<Course> studentCourses  = new ArrayList<>();;
 
     public Student(int StudentId, int grade, String name, int age, String email) {
         super(name,age,email);
         this.grade = grade;
         this.StudentId = StudentId;
-        this.studentCourses = new ArrayList<>();
     }
 
     //Student Getters
-
     public int getGrade(){
         return grade;
     }
@@ -90,10 +87,10 @@ class Student extends Person {
     public ArrayList<Course> getCourse(){
         return studentCourses;
     }
-
+    //Representing created objects in a string format
     @Override
     public String toString(){
-        return "Student ID:" + getStudentId() + ",Name: " + getName() + "Age: " + getAge() + ",Email: " + getEmail() + ",Grade: " + getGrade();
+        return "StudentID:" + getStudentId() + ", Name:" + getName() + ", Age:" + getAge() + ", Email:" + getEmail() + ", Grade:" + getGrade();
     }
 }
 //Teacher class-subclass
@@ -101,13 +98,12 @@ class Teacher extends Person{
     private int teacherId;
     private String subject;
 
-    private ArrayList<Course> teacherCourses;
+    private ArrayList<Course> teacherCourses= new ArrayList<>();;
 
     public Teacher(int teacherId, String subject, String name, int age, String email){
         super(name,age,email);
         this.teacherId = teacherId;
         this.subject = subject;
-        this.teacherCourses = new ArrayList<>();
     }
 
     //Teacher's Getters
@@ -138,10 +134,10 @@ class Teacher extends Person{
     public ArrayList<Course> getCourse(){
         return teacherCourses;
     }
-
+    //Representing created objects in a string format
     @Override
     public String toString(){
-        return "Teacher ID: " + teacherId + ",Name: " + getName() + "Age: " + getAge() + "Email: " + getEmail() + ",Subject: " + getSubject();
+        return "TeacherID:" + teacherId + ", Name:" + getName() + ", Age:" + getAge() + ", Email:" + getEmail() + ", Subject:" + getSubject();
     }
 }
 
@@ -170,7 +166,7 @@ class Course {
     public void setCourseName(String courseName){
         this.courseName = courseName;
     }
-
+   //Representing created objects in a string format
     @Override
     public String toString() {
         return courseId + ":" + courseName;
@@ -186,6 +182,24 @@ public class StudentManagementSystemManager {
     static int teacherIdCounter = 200;
     static int courseIdCounter = 300;
 
+    private static void displayMenu() {
+        System.out.println("\n =====Student Management System====");
+        System.out.println("1. Add  Student");
+        System.out.println("2. Add  Teacher");
+        System.out.println("3. Add Course");
+        System.out.println("4. Assign Course to Student");
+        System.out.println("5. Assign Course to Teacher");
+        System.out.println("6. View Student by Id");
+        System.out.println("7. View Teacher by ID");
+        System.out.println("8. View AllStudentsAndTeachers");
+        System.out.println("9. ViewAllCourses");
+        System.out.println("10. Update Student");
+        System.out.println("11. Update Teacher");
+        System.out.println("12. Delete Student");
+        System.out.println("13. Delete Teacher");
+        System.out.println("14. Exit");
+        System.out.println("Enter your option: ");
+    }
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -195,9 +209,9 @@ public class StudentManagementSystemManager {
             input.nextLine();
 
             switch(option) {
-                case 1 :  addStudent(input);
+                case 1: addStudent(input);
                 break;
-                case 2 :addTeacher(input);
+                case 2 : addTeacher(input);
                 break;
                 case 3 : addCourse(input);
                 break;
@@ -228,25 +242,6 @@ public class StudentManagementSystemManager {
 
             }
         }
-    }
-
-    private static void displayMenu() {
-        System.out.println("\n =====Student Management System====");
-        System.out.println("1. Add  Student");
-        System.out.println("2. Add  Teacher");
-        System.out.println("3. Add Course");
-        System.out.println("4. Assign Course to Student");
-        System.out.println("5. Assign Course to Teacher");
-        System.out.println("6. View Student by Id");
-        System.out.println("7. View Teacher by ID");
-        System.out.println("8. View AllStudentsAndTeachers");
-        System.out.println("9. ViewAllCourses");
-        System.out.println("10. Update Student");
-        System.out.println("11. Update Teacher");
-        System.out.println("12. Delete Student");
-        System.out.println("13. Delete Teacher");
-        System.out.println("14. Exit");
-        System.out.println("Enter your option: ");
     }
 
     private static void addStudent(Scanner input) {
@@ -299,7 +294,7 @@ public class StudentManagementSystemManager {
         int courseId = courseIdCounter++;
         Course course = new Course(courseName,courseId);
         courses.add(course);
-        System.out.println("Course with ID: " + courseId + "has been added successfully");
+        System.out.println("Course with ID: " + courseId + " has been added successfully");
     }
 
     private static void assignCourseToStudent(Scanner input) {
@@ -320,6 +315,7 @@ public class StudentManagementSystemManager {
         Course course = courses.stream().filter(c->c.getCourseId()==courseId).findFirst().orElse(null);
         if(course !=null) {
             student.addCourse(course);
+            System.out.println("Course with id:" + id + " has been assigned to " + student.getName());
         } else{
             System.out.println("Course not found");
         }
@@ -344,6 +340,7 @@ public class StudentManagementSystemManager {
         Course course = courses.stream().filter(c->c.getCourseId()==courseId).findFirst().orElse(null);
         if(course !=null) {
             teacher.addCourse(course);
+            System.out.println("Course with id:" + id + " has been assigned to " + teacher.getName());
         } else{
             System.out.println("Course not found");
         }
@@ -458,7 +455,7 @@ public class StudentManagementSystemManager {
         boolean removed = students.removeIf(s->s.getStudentId()==id);
 
         if(removed) {
-            System.out.println("Student has been deleted");
+            System.out.println("Student with id:" + id + " has been deleted");
         }else{
             System.out.println("Student not found");
         }
@@ -472,7 +469,7 @@ public class StudentManagementSystemManager {
         boolean removed = teachers.removeIf(t->t.getTeacherId()==id);
 
         if(removed) {
-            System.out.println("Teacher has been deleted");
+            System.out.println("Teacher with id:"+id + " has been deleted");
         }else{
             System.out.println("Teacher not found");
         }
