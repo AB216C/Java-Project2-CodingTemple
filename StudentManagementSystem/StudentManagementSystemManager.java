@@ -326,7 +326,7 @@ public class StudentManagementSystemManager {
         System.out.println("Enter Teacher ID:");
         int id = input.nextInt();
         input.nextLine();
-        Teacher teacher = teachers.stream().filter(s->s.getTeacherId()==id).findFirst().orElse(null);
+        Teacher teacher = teachers.stream().filter(t->t.getTeacherId()==id).findFirst().orElse(null);
         if(teacher==null){
             System.out.println("Teacher not found");
             return;
