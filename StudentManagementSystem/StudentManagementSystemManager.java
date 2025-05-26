@@ -261,9 +261,7 @@ public class StudentManagementSystemManager {
         System.out.println("Enter id of a student to delete");
         int id = input.nextInt();
         input.nextLine();
-
         boolean removed = students.removeIf(s->s.getStudentId()==id);
-
         if(removed) {
             System.out.println("Student has been deleted successfully");
         }else{
@@ -274,9 +272,7 @@ public class StudentManagementSystemManager {
         System.out.println("Enter id of a teacher to delete");
         int id = input.nextInt();
         input.nextLine();
-
         boolean removed = teachers.removeIf(t->t.getTeacherId()==id);
-
         if(removed) {
             System.out.println("Teacher has been deleted successfully");
         }else{
