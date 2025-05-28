@@ -22,24 +22,12 @@ class Person {
     }
     //Setter methods
     public void setName(String name){
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Name can not be empty. Try again");
-        }else{
-            this.name = name;
-        }
+        this.name = name;
     }
     public void setAge(int age){
-        if(age<0){
-            throw new IllegalArgumentException("Age should be positive");
-        }else{
-            this.age = age;
-        }
+        this.age = age;
     }
     public void setEmail(String email){
-        if (email == null || email.trim().isEmpty()) {
-            throw new IllegalArgumentException("Name can not be empty. Try again");
-        }else{
-            this.email = name;
-        }
+        this.email = email;
     }
 }

@@ -24,17 +24,12 @@ class Teacher extends Person{
         this.teacherId = teacherId;
     }
     public void setSubject(String subject){
-        if(subject==null||subject.trim().isEmpty()){
-            throw new IllegalArgumentException("Subject can not be empty. Try again");
-        }else{
-            this.subject = subject;
-        }
-
+                this.subject = subject;
     }
     //Teacher's methods
     public void addCourse(Course course){
         if(teacherCourses.size()>2){
-            throw new IllegalArgumentException("Teacher should not be assigned more than 3 courses");
+            System.out.println("Teacher should not be assigned more than 3 courses");
         }else{
             teacherCourses.add(course);
         }

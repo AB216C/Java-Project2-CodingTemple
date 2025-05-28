@@ -68,64 +68,112 @@ public class StudentManagementSystemManager {
         }
     }
     private static void addStudent(Scanner input) {
-        System.out.println("Enter Student's name:");
-        String name = input.nextLine();
-        if(name==null||name.trim().isEmpty()){
-            throw new IllegalArgumentException("Name can not be blank. Try again");
-        }
+        String name;
+        do {
+            System.out.println("Enter Student's name:");
+            name = input.nextLine();
+            if(name==null||name.trim().isEmpty()){
+                System.out.println("Name can not be blank. Try again");
+            }
+        } while(name==null||name.trim().isEmpty());
 
-        System.out.println("Enter Student's age:");
-        int age = input.nextInt();
-        if(age<0){
-            throw new IllegalArgumentException("Age should be positive. Try again");
-        }
+        int age;
+        do{
+            System.out.println("Enter Student's age:");
+            while(!input.hasNextInt()){
+                System.out.println("Invalid input. Enter valid age");
+                input.next();
+            }
+            age = input.nextInt();
+            if(age<0){
+                System.out.println("Age should be positive. Try again");
+            }
+        }while(age<0);
         input.nextLine();
-        System.out.println("Enter student's email:");
-        String email = input.nextLine();
-        if(email==null||email.trim().isEmpty()){
-            throw new IllegalArgumentException(("Email can not be blank. Try again"));
-        }
-        System.out.println("Enter Student's grade:");
-        int grade = input.nextInt();
-        if(grade<0){
-            throw new IllegalArgumentException("Grade should be positive. Try again");
-        }
+
+        String email;
+        do{
+            System.out.println("Enter student's email:");
+            email = input.nextLine();
+            if(email==null||email.trim().isEmpty()){
+                System.out.println(("Email can not be blank. Try again"));
+            }
+        }while(email==null||email.trim().isEmpty());
+
+        int grade;
+        do{
+            System.out.println("Enter Student's grade:");
+            while(!input.hasNextInt()){
+                System.out.println("Invalid input. Enter valid grade");
+                input.next();
+            }
+            grade = input.nextInt();
+            if(grade<0){
+                System.out.println("Grade should be positive. Try again");
+            }
+        }while(grade<0);
+
         int studentId = studentIdCounter++;
         Student student = new Student(studentId, grade,name, age, email);
         students.add(student);
     }
     private static void addTeacher(Scanner input) {
-        System.out.println("Enter Teacher's name: ");
-        String name = input.nextLine();
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Name can not be blank. Try again");
-        }
-        System.out.println("Enter Teacher's age: ");
-        int age = input.nextInt();
-        if(age<0){
-            throw new IllegalArgumentException("Age should be positive. Try again");
-        }
+        String name;
+        do{
+            System.out.println("Enter Teacher's name: ");
+            name = input.nextLine();
+            if (name == null || name.trim().isEmpty()) {
+                System.out.println("Name can not be blank. Try again");
+            }
+        }while(name == null || name.trim().isEmpty());
+
+        int age;
+        do{
+            System.out.println("Enter Teacher's age:");
+            while(!input.hasNextInt()){
+                System.out.println("Invalid input. Enter valid age");
+                input.next();
+            }
+            age = input.nextInt();
+            if(age<0){
+                System.out.println("Age should be positive. Try again");
+            }
+        }while(age<0);
         input.nextLine();
-        System.out.println("Enter Teacher's email: ");
-        String email = input.nextLine();
-        if(email==null||email.trim().isEmpty()){
-            throw new IllegalArgumentException(("Email can not be blank. Try again"));
-        }
-        System.out.println("Enter Teacher's subject: ");
-        String subject = input.nextLine();
-        if(subject==null||subject.trim().isEmpty()){
-            throw new IllegalArgumentException(("Subject can not be blank. Try again"));
-        }
+
+        String email;
+        do{
+            System.out.println("Enter Teacher's email:");
+            email = input.nextLine();
+            if(email==null||email.trim().isEmpty()){
+                System.out.println(("Email can not be blank. Try again"));
+            }
+        }while(email==null||email.trim().isEmpty());
+
+        String subject;
+        do{
+            System.out.println("Enter Teacher's subject: ");
+            subject = input.nextLine();
+            if(subject==null||subject.trim().isEmpty()){
+                System.out.println("Subject can not be blank. Try again");
+            }
+        }while(subject==null||subject.trim().isEmpty());
+
         int teacherId = teacherIdCounter++;
         Teacher teacher = new Teacher(teacherId, subject,name, age, email);
         teachers.add(teacher);
     }
     private static void addCourse(Scanner input) {
-        System.out.println("Enter the course name: ");
-        String courseName = input.nextLine();
-        if (courseName == null || courseName.trim().isEmpty()) {
-            throw new IllegalArgumentException("Course name can't be blank. Try again");
-        }
+        String courseName;
+        do {
+
+            System.out.println("Enter the course name: ");
+            courseName = input.nextLine();
+            if (courseName == null || courseName.trim().isEmpty()) {
+                System.out.println("Course name can't be blank. Try again");
+            }
+        }while(courseName == null || courseName.trim().isEmpty());
+
         int courseId = courseIdCounter++;
         Course course = new Course(courseName,courseId);
         courses.add(course);
@@ -214,21 +262,61 @@ public class StudentManagementSystemManager {
         if(student==null){
             System.out.println("Student not found");
             return;
+       }
+        while(true){
+            System.out.println("Update name:");
+            String name = input.nextLine();
+            if(name!=null&&!name.trim().isEmpty()){
+                student.setName(name);
+                break;
+            } else {
+                System.out.println("Name can not be empty. Try again");
+            }
         }
-        try {
-            System.out.println("Update name: ");
-            student.setName(input.nextLine());
+        while(true){
             System.out.println("Update age: ");
-            student.setAge(input.nextInt());
-            input.nextLine();
-            System.out.println("Update email: ");
-            student.setEmail(input.nextLine());
-            System.out.println("Update  grade: ");
-            student.setGrade(input.nextInt());
-            System.out.println("Student has been updated");
-        }catch(Exception e) {
-            System.out.println("Error updating: " + e.getMessage());
+            if(input.hasNextInt()){
+                int age = input.nextInt();
+                if(age>0){
+                    student.setAge(age);
+                    input.nextLine();
+                    break;
+                }else{
+                    System.out.println("Age should be positive. Try again");
+                }
+            }else{
+                System.out.println("Invalid input. Enter a valid number");
+                input.next();
+            }
         }
+        while(true){
+            System.out.println("Update email:");
+            String email = input.nextLine();
+            if(email!=null&&!email.trim().isEmpty()){
+                student.setEmail(email);
+                break;
+            } else {
+                System.out.println("Email can not be empty. Try again");
+            }
+        }
+        while(true){
+            System.out.println("Update Grade: ");
+            if(input.hasNextInt()){
+                int grade = input.nextInt();
+                if(grade>0){
+                    student.setGrade(grade);
+                    input.nextLine();
+                    break;
+                }else{
+                    System.out.println("Grade should be positive. Try again");
+                }
+            }else{
+                System.out.println("Invalid input. Enter a valid number");
+                input.next();
+            }
+        }
+
+          System.out.println("Student has been updated");
     }
     private static void updateTeacher (Scanner input) {
         System.out.println("Enter teacher Id: ");
@@ -239,23 +327,53 @@ public class StudentManagementSystemManager {
             System.out.println("teacher not found");
             return;
         }
-        try {
-            System.out.println("Update name: ");
-            teacher.setName(input.nextLine());
-
-            System.out.println("Update age: ");
-            teacher.setAge(input.nextInt());
-            input.nextLine();
-
-            System.out.println("Update email: ");
-            teacher.setEmail(input.nextLine());
-
-            System.out.println("Update  Subject: ");
-            teacher.setSubject(input.nextLine());
-            System.out.println("Teacher has been updated");
-        }catch(Exception e) {
-            System.out.println("Error updating: " + e.getMessage());
+        while(true){
+            System.out.println("Update name:");
+            String name = input.nextLine();
+            if(name!=null&&!name.trim().isEmpty()){
+                teacher.setName(name);
+                break;
+            } else {
+                System.out.println("Name can not be empty. Try again");
+            }
         }
+        while(true){
+            System.out.println("Update age: ");
+            if(input.hasNextInt()){
+                int age = input.nextInt();
+                if(age>0){
+                    teacher.setAge(age);
+                    input.nextLine();
+                    break;
+                }else{
+                    System.out.println("Age should be positive. Try again");
+                }
+            }else{
+                System.out.println("Invalid input. Enter a valid number");
+                input.next();
+            }
+        }
+        while(true){
+            System.out.println("Update email:");
+            String email = input.nextLine();
+            if(email!=null&&!email.trim().isEmpty()){
+                teacher.setEmail(email);
+                break;
+            } else {
+                System.out.println("Email can not be empty. Try again");
+            }
+        }
+        while(true){
+            System.out.println("Update subject:");
+            String subject = input.nextLine();
+            if(subject!=null&&!subject.trim().isEmpty()){
+                teacher.setSubject(subject);
+                break;
+            } else {
+                System.out.println("Subject can not be empty. Try again");
+            }
+        }
+           System.out.println("Teacher has been updated");
     }
     private static void deleteStudent(Scanner input){
         System.out.println("Enter id of a student to delete");

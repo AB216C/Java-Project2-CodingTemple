@@ -19,12 +19,7 @@ class Student extends Person {
     }
     //Setters
     public void setGrade(int grade){
-        if(grade<0){
-            throw new IllegalArgumentException("Grade can not be negative. Try again");
-        }else {
-            this.grade = grade;
-        }
-
+                this.grade = grade;
     }
     public void setStudentId( int StudentId){
         this.StudentId = StudentId;
@@ -32,8 +27,7 @@ class Student extends Person {
     //Student methods
     public void addCourse(Course course){
         if(studentCourses.size()>4){
-            throw new IllegalArgumentException("Student can not take more than 5 courses");
-
+            System.out.println("Student can not take more than 5 courses");
         }else {
             studentCourses.add(course);
         }

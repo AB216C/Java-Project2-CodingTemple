@@ -20,12 +20,7 @@ class Course {
         this.courseId = courseId;
     }
     public void setCourseName(String courseName){
-        if(courseName==null||courseName.trim().isEmpty()){
-            throw new IllegalArgumentException("Course name can not be empty. Try again");
-        }else{
-            this.courseName = courseName;
-        }
-
+        this.courseName = courseName;
     }
     //Representing created objects in a string format
     @Override
